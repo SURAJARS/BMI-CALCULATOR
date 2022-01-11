@@ -1,0 +1,287 @@
+<html>
+  <head>
+    <title>bmi</title>
+    <!canvas id="barChart" width="400" height="120">
+     <canvas id="canvas" width="200" height="200"
+style="background-color:#39">
+
+</canvas>
+  
+
+    <style>
+      #bt {
+    cursor: pointer;
+    text-align: center;
+    width: 108px;
+    /*padding: 5px;
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;*/
+    border: 1px solid #999;
+   
+    background:#FFFF00 ;
+   /* background: -webkit-gradient(linear, left top, left bottom, from(#FF4500), to(#FFD700));
+	background: -moz-linear-gradient(top, #FFD119, #FF4500);
+    font-weight: bold;
+    height: 28px;
+    box-shadow: 0 -8px inset;*/
+}
+       #bt1 {
+    cursor: pointer;
+    text-align: center;
+    width: 108px;
+    /*padding: 5px;
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;*/
+    border: 1px solid #999;
+   
+    background:#008000 ;
+   /* background: -webkit-gradient(linear, left top, left bottom, from(#FF4500), to(#FFD700));
+	background: -moz-linear-gradient(top, #FFD119, #FF4500);
+    font-weight: bold;
+    height: 28px;
+   box-shadow: 0 -8px inset;*/
+}
+       #bt2 {
+    cursor: pointer;
+    text-align: center;
+    width: 108px;
+    /*padding: 5px;
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;*/
+    border: 1px solid #999;
+   
+    background:#8B0000;
+   background: -webkit-gradient(linear, left top, left bottom, from(#FF4500), to(#FFD700));
+	background: -moz-linear-gradient(top, #FFD119, #FF4500);
+  /*  font-weight: bold;
+    height: 28px;
+    box-shadow: 0 -8px inset;*/
+}
+       #bt3 {
+    cursor: pointer;
+    text-align: center;
+    width: 108px;
+    /*padding: 5px;
+    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;*/
+    border: 1px solid #999;
+   
+    background:#FF4500;
+    /*background: -webkit-gradient(linear, left top, left bottom, from(#FF4500), to(#FFD700));
+	background: -moz-linear-gradient(top, #FFD119, #FF4500);
+    font-weight: bold;
+    height: 28px;
+  box-shadow: 0 -8px inset;*/
+}
+      #res3{
+        background:#FFFF00;
+         cursor: pointer;
+    text-align: center;
+    width: 108px;
+         border: 1px solid black;
+         font-weight: bold;
+      }
+      #res4{
+       
+        background:#008000;
+         cursor: pointer;
+    text-align: center;
+    width: 108px;
+         border: 1px solid black;
+         font-weight: bold;
+      }
+      #res5{
+     
+        background:#8B0000;
+   background: -webkit-gradient(linear, left top, left bottom, from(#FF4500), to(#FFD700));
+	background: -moz-linear-gradient(top, #FFD119, #FF4500);
+         cursor: pointer;
+    text-align: center;
+    width: 108px;
+         border: 1px solid black;
+         font-weight: bold;
+      }
+      #res6{
+        
+        background:#FF4500;
+         cursor: pointer;
+    text-align: center;
+    width: 108px;
+         border: 1px solid black;
+         font-weight: bold;
+      }
+     
+      
+     /* #vl {
+  border-left: 2px solid green;
+        width:500px;
+  height: 70px;
+  position: absolute;
+  left:20%;
+  text-decoration-line: line-through;     
+
+  margin-left: if(final>30) 300px;
+   margin:if((final>25)&&(final<30))  300px;
+       
+  top: 10;
+}*/
+    </style>
+    <script type="text/javascript">
+      function cb(){
+             var w=document.getElementById("text1").value;
+             var h=document.getElementById("text2").value;
+        if(w>0 && h>0){
+          var final1=w/(h/100*h/100)
+          //var final1=Math.tofixed(final)
+          var final=final1.toFixed(1)
+         document.getElementById("res1").innerHTML=("<h1>Your BMI is"+"<h2>"+"<h2>" +"<h1>");
+         
+        if(final<18.5){
+          document.getElementById("res").innerHTML=("<b>You are Underweight</b>");
+          document.getElementById("res3").innerHTML=final;
+        }
+          if((final>18.5)&&(final<25)){
+             document.getElementById("res").innerHTML=("<b>You are Normal</b>");
+            document.getElementById("res4").innerHTML=final;
+          }
+          if((final>25)&&(final<30)){
+            document.getElementById("res").innerHTML=("<b>You are Overweight</b>");
+            document.getElementById("res5").innerHTML=final;
+          }
+          if(final>30){
+           document.getElementById("res").innerHTML=("<b>You are Obesity</b>");
+            document.getElementById("res6").innerHTML=final;
+           
+          }
+        }
+      
+      }
+       
+      var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+function drawClock() {
+  drawFace(ctx, radius);
+  drawNumbers(ctx, radius);
+  drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+  var grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+  grad.addColorStop(0, '#333');
+  grad.addColorStop(0.5, 'white');
+  grad.addColorStop(1, '#333');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = radius*0.1;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+  var ang;
+  var num;
+  ctx.font = radius*0.15 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(num = 1; num < 13; num++){
+    ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 0, 0);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
+  }
+  ctx.font="20px Arial";
+  ctx.fillText("suraj",0,40);
+}
+
+function drawTime(ctx, radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    //hour
+    hour=hour%12;
+    hour=(hour*Math.PI/6)+
+    (minute*Math.PI/(6*60))+
+    (second*Math.PI/(360*60));
+    drawHand(ctx, hour, radius*0.5, radius*0.07);
+    //minute
+    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
+    // second
+    second=(second*Math.PI/30);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
+}
+
+function drawHand(ctx, pos, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+}
+       function myButton(){
+          location.reload();
+        }
+    </script>
+    <!/canvas>
+  </head>
+  <body>
+    <br/>
+    <input id="text1" placeholder="Weight">
+    <br/>
+    <input id="text2" placeholder="Height">
+    <br/>
+ <br/> 
+    <button onclick="cb()">Calculate</button>
+    <button onclick="myButton()">Reset</button>
+    <br/>
+    <div id="res"></div>
+    <div id="res1"></div>
+    
+   
+    <button id="res3"></button>
+    <button id="res4"></button>
+    <button id="res5"></button>
+    <button id="res6"></button>
+    <br/>
+     
+    
+    <div id="vl"></div>
+    
+    <br/>
+    <button id="bt">Underweight</button>
+    <button id="bt1">Normal</button> 
+     <button id="bt2">Overweight</button> 
+     <button id="bt3">Obesity</button> 
+    <p>The UNDERWEIGHT BMI Range is Below 18.5<br/>
+       The NORMAL BMI Range Is 18.5 To 25<br/>
+       The OVERWEIGHT BMI Range Is 25 To 30<br/>
+       The OBESITY BMI Range Is Above 30</p>
+    
+   
+   
+  </body>
+  </html>
